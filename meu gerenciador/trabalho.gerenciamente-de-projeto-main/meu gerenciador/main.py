@@ -17,9 +17,9 @@ def menu_usuarios():
         if escolha == '0': return
 
         if escolha == '1':
-            nome = str(input("Nome: "))
-            email = str(input("E-mail: "))
-            perfil = str(input("Perfil (usuario/admin): "))
+            nome = str(input("Nome: ")).strip()
+            email = str(input("E-mail: ")).strip()
+            perfil = str(input("Perfil (usuario/admin): ")).strip().lower()
 
             if not nome or not email or not perfil:
                 print("Todos os campos são obrigatórios.")
@@ -28,9 +28,11 @@ def menu_usuarios():
                 print("Perfil inválido. Use 'usuario' ou 'admin'.")
                 continue
 
-            cadastrar_usuario(nome, email, perfil)
-            print("Usuário cadastrado com sucesso.")
-
+            result= cadastrar_usuario(nome, email, perfil)
+            if result:
+                print("Usuário cadastrado com sucesso.")
+            else:
+                 print("Erro: Usuário não cadastrado (email duplicado ou inválido).")
         elif escolha == '2':
             display_entity_lista(listar_usuarios(), "Usuários")
 
